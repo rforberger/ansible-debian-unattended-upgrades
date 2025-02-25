@@ -1,0 +1,20 @@
+---
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  loop:
+    - unattended-upgrades
+    - apt-listchanges
+
+- name: Write 50unattended-upgrades
+  ansible.builtin.template:
+    dest: "/etc/apt/apt.conf.d/50unattended-upgrades"
+    src: "50unattended-upgrades.j2"
+
+- name: Write 02periodic
+  ansible.builtin.template:
+    dest: "/etc/apt/apt.conf.d/02periodic"
+    src: "02periodic.j2"
+  notify: Restart unattended-upgrades
+
