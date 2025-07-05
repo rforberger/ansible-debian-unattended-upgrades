@@ -3,6 +3,7 @@
 - name: Install packages
   ansible.builtin.apt:
     name: "{{ item }}"
+    update_cache: yes
   loop:
     - unattended-upgrades
     - apt-listchanges
